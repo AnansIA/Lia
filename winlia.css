@@ -1,0 +1,17 @@
+[MSG-INI]                  
+        QWidget {
+                 background-color: rgba(128, 0, 128, 0.5);
+                 color: white;
+                 font-family: 'Segoe UI', sans-serif;
+                 font-size: 16pt;
+                 border-radius: 10px;
+                }                           
+[MSG-END]
+[OPTIONS-INI]
+
+[OPTIONS-END]
+
+[TEXT-INI]
+
+
+[TEXT-END]

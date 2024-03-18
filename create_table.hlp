@@ -1,0 +1,57 @@
+Manual para la Función create_table
+
+La función create_table se utiliza para crear tablas en una base de datos SQLite a partir de un diccionario de definiciones de campos. Este manual describe cómo utilizar la función y cómo especificar los tipos de campos y las restricciones.
+Especificaciones Generales
+
+    table (str): Nombre de la tabla a crear.
+    fields (dict): Diccionario donde cada clave representa el nombre de un campo y cada valor representa la definición del tipo de campo y restricciones opcionales.
+
+Tipos de Campos y Abreviaturas
+
+Las siguientes abreviaturas se utilizan para especificar los tipos de campos y restricciones:
+
+    T: TEXT. Usado para datos de texto.
+    I: INTEGER. Usado para números enteros.
+    R: REAL. Usado para números de punto flotante.
+    B: BLOB. Usado para datos binarios.
+    C, V, L: TEXT. Usado para CHAR, VARCHAR, y CLOB, respectivamente. Todos mapeados a TEXT.
+    INT: INTEGER. Otro modo de especificar INTEGER.
+    BI, SI: INTEGER. BIGINT y SMALLINT, respectivamente, ambos mapeados a INTEGER.
+    F, D: REAL. FLOAT y DOUBLE, respectivamente.
+    DE: NUMERIC. Usado para DECIMAL, aunque SQLite lo trata como numérico.
+    BOOL: INTEGER. BOOLEAN, mapeado a INTEGER (0 para false, 1 para true).
+    DATE, DT: TEXT. DATE y DATETIME, respectivamente. Deben almacenarse como cadenas de texto en formato ISO8601 o como enteros en formato Unix Time.
+
+Restricciones
+
+    P: PRIMARY KEY. Indica que el campo es una clave primaria. Se añade automáticamente el tipo INTEGER.
+    U: UNIQUE. Indica que el campo debe tener valores únicos.
+
+Especificar Tamaño
+
+Para especificar el tamaño de un campo de texto (por ejemplo, VARCHAR), incluya el tamaño entre paréntesis después de la letra correspondiente: T(30).
+Ejemplos
+Crear una Tabla Simple
+
+
+campos = {
+    'id': 'P',  # INTEGER PRIMARY KEY
+    'nombre': 'T(30)',  # TEXT con un máximo de 30 caracteres
+    'observaciones': 'T',  # TEXT sin límite de tamaño
+    'numero': 'I',  # INTEGER
+    'fecha': 'DATE'  # DATE como TEXT
+}
+create_table('mi_tabla', campos)
+
+campos = {
+    'id': 'P',  # INTEGER PRIMARY KEY
+    'email': 'T(100) U',  # TEXT con un máximo de 100 caracteres y UNIQUE
+    'edad': 'I'  # INTEGER
+}
+create_table('usuarios', campos)
+
+CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY, email TEXT(100) UNIQUE, edad INTEGER)
+
+
+CREATE TABLE IF NOT EXISTS mi_tabla (id INTEGER PRIMARY KEY, nombre TEXT(30), observaciones TEXT, numero INTEGER, fecha TEXT)
+
